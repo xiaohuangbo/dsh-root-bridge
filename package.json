@@ -1,0 +1,66 @@
+{
+  "name": "@xiaohuangbo/dsh-root-bridge",
+  "version": "1.0.0",
+  "description": "Session-level root privilege bridge for DeepSeek Harness: request-approval mode, full root mode (polkit password entry in the web UI) and fakeroot mode, with sudo or run0 --empower escalation and configurable subagent sudo policy.",
+  "keywords": [
+    "dsh",
+    "deepseek",
+    "harness"
+  ],
+  "homepage": "https://github.com/xiaohuangbo/dsh-root-bridge",
+  "bugs": {
+    "url": "https://github.com/xiaohuangbo/dsh-root-bridge/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xiaohuangbo/dsh-root-bridge.git"
+  },
+  "license": "GPL-3.0",
+  "author": "xiaohuangbo",
+  "type": "module",
+  "exports": {
+    ".": "./svc14.js",
+    "./client": "./client.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "main": "./svc14.js",
+  "directories": {
+    "test": "test"
+  },
+  "files": [
+    "LICENSE",
+    "README.md",
+    "client.js",
+    "cordis.patch.yml",
+    "icon.svg",
+    "locale/*.json",
+    "screenshots.json",
+    "svc14.js",
+    "test/ask-flow.test.mjs",
+    "test/client-contract.test.mjs",
+    "test/client-integration.test.mjs",
+    "test/config-getters.test.mjs"
+  ],
+  "scripts": {
+    "test": "node test/config-getters.test.mjs && node test/ask-flow.test.mjs && node test/client-contract.test.mjs && node test/client-integration.test.mjs"
+  },
+  "dependencies": {
+    "@deepseek-ai/cordis": "~4.1.0",
+    "@deepseek-ai/schemastery": "~3.19.0",
+    "@deepseek-ai/dsh-scope": "0.2.2-rc.1",
+    "@deepseek-ai/dsh-typert-protocol": "0.2.2-rc.1"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-conversation"
+      ]
+    }
+  }
+}

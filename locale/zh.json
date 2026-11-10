@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "DSH root bridge（root 权限桥）",
+    "description": "为 DeepSeek Harness 提供三种权限管理模式：申请 root 权限执行（网页弹窗审批）、完全 root 模式（polkit 认证，sudo / run0 --empower 提权，整个会话以 root 运行）、fakeroot 模拟 root。委托子代理可申请、触发密码输入或继承 sudo 访问权限。作者：xiaohuangbo"
+  }
+}

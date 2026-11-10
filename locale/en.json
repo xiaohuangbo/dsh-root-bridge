@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "DSH root bridge",
+    "description": "Session-level root privilege modes for DeepSeek Harness: request-approval mode, full root mode with polkit password entry in the web UI (sudo or run0 --empower), and fakeroot simulation. Delegated subagents can request, trigger password entry, or inherit sudo access."
+  }
+}
