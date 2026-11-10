@@ -1,6 +1,6 @@
 {
   "name": "@xiaohuangbo/dsh-root-bridge",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Session-level root privilege bridge for DeepSeek Harness: request-approval mode, full root mode (polkit password entry in the web UI) and fakeroot mode, with sudo or run0 --empower escalation and configurable subagent sudo policy.",
   "keywords": [
     "dsh",
