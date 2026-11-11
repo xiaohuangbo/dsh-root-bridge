@@ -107,6 +107,29 @@ Prebuilt npm installs skip the build-approval step, so this is the smoothest pat
 dsh plugin add @xiaohuangbo/dsh-root-bridge
 ```
 
+### From GitHub Packages (optional) / 从 GitHub Packages 安装（可选）
+
+**English** — the same version is also published to [GitHub Packages](https://github.com/xiaohuangbo/dsh-root-bridge/packages). GitHub Packages requires authentication **even for public packages**, so add a token with `read:packages` first:
+
+```bash
+# once: point this scope at GitHub Packages and store a token
+npm config set @xiaohuangbo:registry https://npm.pkg.github.com
+npm config set //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+
+dsh plugin add @xiaohuangbo/dsh-root-bridge
+```
+
+Because of that auth requirement, npm remains the recommended path for most users. / 由于需要先配置 token，普通用户建议优先走 npm。
+
+**中文** — 同一个版本也会发布到 [GitHub Packages](https://github.com/xiaohuangbo/dsh-root-bridge/packages)。GitHub Packages **即便是公开包也要求认证**，所以要先配置一个具备 `read:packages` 权限的 token：
+
+```bash
+npm config set @xiaohuangbo:registry https://npm.pkg.github.com
+npm config set //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+
+dsh plugin add @xiaohuangbo/dsh-root-bridge
+```
+
 ### Other ways / 其他安装方式
 
 | Way / 方式 | Command / 操作 |
@@ -223,6 +246,38 @@ Implementation notes (read before touching this code) / 实现要点（改代码
 10. **run0 on systemd 262** — no `--wait` flag; never probe with `--no-ask-password` (polkit refuses interactive auth outright — probe with plain `run0 --empower true`); `script` needs `-e` to forward the child exit code; `--empower` means “capabilities for the current user”, not a uid switch. / systemd 262 无 `--wait`；探测别用 `--no-ask-password`；`script` 要 `-e`；`--empower` 语义是给能力而非切 uid。
 
 </details>
+
+### Publishing / 发布
+
+**English** — two registries are configured. `publishConfig` defaults `npm publish` to GitHub Packages; the CLI flag overrides it for npm (npm ≥ 9 gives CLI flags priority over `publishConfig`):
+
+| Command | Target |
+| --- | --- |
+| `npm run publish:npm` | `https://registry.npmjs.org` |
+| `npm run publish:gh` | `https://npm.pkg.github.com` (from `publishConfig.registry`) |
+| `npm run publish:both` | both, one after the other |
+
+Publishing to GitHub Packages needs a token with `write:packages` in `~/.npmrc`; the `repository` field must match the repo, and the package scope must match the GitHub owner (both already true here).
+
+```bash
+# ~/.npmrc
+//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+```
+
+**中文** — 配置了两个注册表。`publishConfig` 让 `npm publish` 默认发到 GitHub Packages；发布 npm 时用 CLI 参数覆盖（npm ≥ 9 中 CLI 参数优先于 `publishConfig`）：
+
+| 命令 | 目标 |
+| --- | --- |
+| `npm run publish:npm` | `https://registry.npmjs.org` |
+| `npm run publish:gh` | `https://npm.pkg.github.com` |
+| `npm run publish:both` | 依次发布到两个注册表 |
+
+发布到 GitHub Packages 需要在 `~/.npmrc` 里配置具备 `write:packages` 的 token；`repository` 字段必须指向本仓库，包作用域必须与 GitHub 账号一致（本仓库两者都满足）。
+
+```bash
+# ~/.npmrc
+//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+```
 
 ## Known limitations / 已知限制
 
