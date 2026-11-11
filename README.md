@@ -25,7 +25,11 @@
   <em>The settings page (<code>Settings → Root bridge</code>) with mode, escalation, subagent policy and language. / 设置面板里的「Root 权限」页：模式、提权方式、子代理策略与界面语言。</em>
 </p>
 
----
+<p align="center">
+  <img src="https://raw.githubusercontent.com/xiaohuangbo/dsh-root-bridge/refs/heads/main/file_00000000aadc8211adc8363c7d7aa7f5.png" alt=" promotional image/ 宣传图" width="480" />
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/xiaohuangbo/dsh-root-bridge/refs/heads/main/file_000000007c088211aae33084e186610d.png" alt=" Principle image/ 原理图" width="480" />
 
 ## What is this / 这是什么
 
