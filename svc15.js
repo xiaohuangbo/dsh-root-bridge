@@ -21,15 +21,12 @@
  */
 import z from "@deepseek-ai/schemastery";
 import { TypertRemoteService } from "@deepseek-ai/dsh-typert-protocol";
-import { scopeTarget, carrierKeyOf } from "@deepseek-ai/dsh-scope";
 import { randomUUID } from "node:crypto";
 import { spawn, spawnSync } from "node:child_process";
 import { mkdtempSync, writeFileSync, rmSync, existsSync, readFileSync, appendFileSync } from "node:fs";
-import { tmpdir, homedir, userInfo } from "node:os";
+import { tmpdir, userInfo } from "node:os";
 import { join } from "node:path";
 
-/** Host→Client 转发的水位事件名 (自定义远程事件源)。 */
-const EVENT = "dsh-root-bridge/approval-request";
 /** typert Remote 方法标记键 (与 @deepseek-ai/dsh-typert-protocol 内部一致)。 */
 const REMOTE_METHOD_DESCRIPTOR = "@deepseek-ai/dsh-typert-protocol/remote-methods";
 /** 审批/密码弹窗默认超时。 */
@@ -675,28 +672,6 @@ export class DshRootBridgeService extends TypertRemoteService {
     });
   }
 
-  /* ============================ 远程事件源 (Host → Client) ============================ */
-
-  remoteEventSource() {
-    return (signal) => {
-      const queue = new RemoteEventQueue();
-      const disposers = [
-        this.ctx.on(EVENT, function (request, next) {
-          const carrierAgent = carrierKeyOf(this);
-          if (carrierAgent === undefined) return next();
-          const agent = request.agent;
-          if (agent === undefined || agent !== carrierAgent) {
-            throw new TypeError(`forwarded scoped event ${JSON.stringify(EVENT)} must carry its Agent directly`);
-          }
-          return forwardWaterfall(queue, EVENT, request, { value: agent.ctx, subject: agent, agentId: agent.id }, next);
-        }),
-      ];
-      return queue.iterate(signal, () => {
-        for (const dispose of disposers) dispose();
-      });
-    };
-  }
-
   /* ============================ ask 模式工具 ============================ */
 
   requestRootTool() {
@@ -918,74 +893,6 @@ export class DshRootBridgeService extends TypertRemoteService {
 function denyText(kind) {
   if (kind === "rejected") return "[dsh-root-bridge] 用户拒绝了该次 root 权限申请，命令未执行。";
   return "[dsh-root-bridge] 无法建立会话级 root 授权（用户取消或校验失败），命令未执行。";
-}
-
-function normalizeOutcome(outcome) {
-  if (outcome && typeof outcome === "object" && typeof outcome.decision === "string") return outcome;
-  if (outcome === "allow" || outcome === "deny" || outcome === "cancel") return { decision: outcome };
-  return { decision: "deny", reason: "invalid-outcome" };
-}
-
-/** 拉取驱动的队列: 桥接同步 Cordis 监听器与 AsyncIterable。 */
-class RemoteEventQueue {
-  buffer = [];
-  waiter;
-  done = false;
-  push(frame) {
-    if (this.done) return false;
-    this.buffer.push(frame);
-    this.waiter?.();
-    return true;
-  }
-  end(reason) {
-    if (this.done) return;
-    this.done = true;
-    while (this.buffer.length > 0) {
-      const dispatch = this.buffer.shift();
-      if ("context" in dispatch) dispatch.reject(reason);
-    }
-    this.waiter?.();
-  }
-  async *iterate(signal, cleanup) {
-    const abort = () => this.end(signal.reason ?? new Error("remote event source aborted"));
-    signal.addEventListener("abort", abort, { once: true });
-    try {
-      while (true) {
-        if (this.done || signal.aborted) return;
-        while (this.buffer.length > 0) yield this.buffer.shift();
-        await new Promise((resolve) => {
-          this.waiter = resolve;
-        });
-        this.waiter = undefined;
-      }
-    } finally {
-      signal.removeEventListener("abort", abort);
-      this.end(signal.reason);
-      cleanup();
-    }
-  }
-}
-
-/** 把一个 Cordis 水水位请求转发到网关队列, 等待客户端应答。 */
-function forwardWaterfall(queue, event, request, context, next) {
-  const settled = Promise.withResolvers();
-  const dispatch = {
-    event,
-    request,
-    context,
-    resolve: (outcome) => {
-      if (outcome.kind === "result") {
-        settled.resolve(outcome.value);
-        return;
-      }
-      Promise.resolve()
-        .then(next)
-        .then(settled.resolve, settled.reject);
-    },
-    reject: settled.reject,
-  };
-  if (!queue.push(dispatch)) Promise.resolve().then(next).then(settled.resolve, settled.reject);
-  return settled.promise;
 }
 
 // 声明 Client 可调用的 Remote 方法 (网关 SRC 发现依赖该标记)。

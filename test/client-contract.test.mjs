@@ -229,7 +229,7 @@ assert.deepEqual(
 );
 
 /* ---------------- 6. Cross-check wires against the host service methods ---------------- */
-const hostSource = readFileSync(join(bundleDir, 'svc15.js'), 'utf8');
+const hostSource = readFileSync(join(bundleDir, 'svc16.js'), 'utf8');
 for (const [method, wires] of [
   ['decide', ['requestId', 'decision']],
   ['submitPassword', ['requestId', 'password']],

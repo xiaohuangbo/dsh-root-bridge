@@ -5,7 +5,7 @@
  * 插件激活/安装 bundle 时直接 "Maximum call stack size exceeded"。
  */
 import assert from "node:assert/strict";
-import { DshRootBridgeService } from "../svc15.js";
+import { DshRootBridgeService } from "../svc16.js";
 
 /** 绕过构造函数, 只测 getter。 */
 function serviceWith(config) {

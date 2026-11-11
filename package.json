@@ -1,6 +1,6 @@
 {
   "name": "@xiaohuangbo/dsh-root-bridge",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Session-level root privilege bridge for DeepSeek Harness: request-approval mode, full root mode (polkit password entry in the web UI) and fakeroot mode, with sudo or run0 --empower escalation and configurable subagent sudo policy.",
   "keywords": [
     "dsh",
@@ -19,16 +19,17 @@
   "author": "xiaohuangbo",
   "type": "module",
   "exports": {
-    ".": "./svc15.js",
+    ".": "./svc16.js",
     "./client": "./client.js",
     "./locale/*.json": "./locale/*.json",
     "./icon": "./icon.svg"
   },
-  "main": "./svc15.js",
+  "main": "./svc16.js",
   "directories": {
     "test": "test"
   },
   "files": [
+    "./svc16.js",
     "LICENSE",
     "README.md",
     "client.js",
@@ -36,7 +37,6 @@
     "icon.svg",
     "locale/*.json",
     "screenshots.json",
-    "svc15.js",
     "test/ask-flow.test.mjs",
     "test/client-contract.test.mjs",
     "test/client-integration.test.mjs",
@@ -48,12 +48,7 @@
     "publish:gh": "npm publish --registry=https://npm.pkg.github.com",
     "publish:both": "npm run publish:npm && npm run publish:gh"
   },
-  "dependencies": {
-    "@deepseek-ai/cordis": "~4.1.0",
-    "@deepseek-ai/schemastery": "~3.19.0",
-    "@deepseek-ai/dsh-scope": "0.2.2-rc.1",
-    "@deepseek-ai/dsh-typert-protocol": "0.2.2-rc.1"
-  },
+  "dependencies": {},
   "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"
@@ -69,5 +64,13 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com",
     "access": "public"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/schemastery": "^3.19.0",
+    "@deepseek-ai/dsh-typert-protocol": ">=0.2.2-rc.1 <0.3.0-0"
+  },
+  "devDependencies": {
+    "@deepseek-ai/schemastery": "~3.19.0",
+    "@deepseek-ai/dsh-typert-protocol": "0.2.2-rc.1"
   }
 }

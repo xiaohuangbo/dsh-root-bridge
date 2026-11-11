@@ -247,6 +247,30 @@ Implementation notes (read before touching this code) / 实现要点（改代码
 
 </details>
 
+### Dependencies / 依赖
+
+**English** — DeepSeek Harness ships the packages this plugin imports, so they are declared as **peerDependencies**, never bundled copies. That keeps a single instance of `schemastery` and `dsh-typert-protocol` in memory and avoids version drift between the plugin and the harness:
+
+```json
+"peerDependencies": {
+  "@deepseek-ai/schemastery": "^3.19.0",
+  "@deepseek-ai/dsh-typert-protocol": ">=0.2.2-rc.1 <0.3.0-0"
+}
+```
+
+They are mirrored into `devDependencies` so `npm test` works in a fresh clone.
+
+**中文** — 本插件 import 的这些包由 DeepSeek Harness 自身提供，因此声明为 **peerDependencies**，不打包自己的副本。这样内存里只有一份 `schemastery` / `dsh-typert-protocol` 实例，也不会出现插件与宿主版本漂移：
+
+```json
+"peerDependencies": {
+  "@deepseek-ai/schemastery": "^3.19.0",
+  "@deepseek-ai/dsh-typert-protocol": ">=0.2.2-rc.1 <0.3.0-0"
+}
+```
+
+同时镜像到 `devDependencies`，保证全新克隆后 `npm test` 能跑。
+
 ### Publishing / 发布
 
 **English** — two registries are configured. `publishConfig` defaults `npm publish` to GitHub Packages; the CLI flag overrides it for npm (npm ≥ 9 gives CLI flags priority over `publishConfig`):
