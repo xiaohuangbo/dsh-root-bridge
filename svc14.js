@@ -459,6 +459,9 @@ export class DshRootBridgeService extends TypertRemoteService {
 
   grantUsable(grant) {
     if (grant === undefined) return false;
+    // 提权方式被切换后（sudo <-> run0）旧授权必须失效，否则切换会静默不生效：
+    // 授权仍按旧方式复用，用户以为换了方式，实际执行的还是老的。
+    if (grant.method !== this.cfgEscalation) return false;
     if (grant.method === "sudo" && grant.pwFile !== undefined) {
       return existsSync(grant.pwFile) && existsSync(grant.askpass);
     }

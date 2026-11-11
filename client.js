@@ -236,68 +236,31 @@ window.__ModuleLoader__.load({
 
     /* ---------------- 样式 (宿主主题 token) ---------------- */
     const styles = {
-      layer: {
-        position: 'fixed', inset: 0, zIndex: 2147483000, pointerEvents: 'none',
-        display: 'flex', alignItems: 'flex-start', justifyContent: 'center',
-        padding: '72px 16px 16px',
-      },
-      card: {
-        pointerEvents: 'auto', width: '100%', maxWidth: 640,
-        border: '1px solid var(--dsw-alias-state-warn-secondary)',
-        borderRadius: 'var(--dsw-radius-xl)', background: 'var(--dsw-specific-input-major)',
-        boxShadow: 'var(--dsw-shadow-lv2)', overflow: 'hidden', display: 'flex', flexDirection: 'column',
-      },
-      strip: {
-        background: 'var(--dsw-alias-state-warn-tertiary)', color: 'var(--dsw-alias-state-warn-primary)',
-        display: 'flex', alignItems: 'center', gap: 8, padding: '10px 16px', fontSize: 13, lineHeight: '18px',
-      },
-      dot: {
-        width: 8, height: 8, borderRadius: '50%', background: 'var(--dsw-alias-state-warn-primary)', flexShrink: 0,
-      },
-      body: {
-        display: 'flex', flexDirection: 'column', gap: 8, padding: '14px 16px',
-        maxHeight: '46vh', overflowY: 'auto', textAlign: 'left',
-      },
+      layer: { position: 'fixed', inset: 0, zIndex: 2147483000, pointerEvents: 'none', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', padding: 'clamp(48px, 10vh, 96px) 16px 24px', background: 'var(--dsw-alias-bg-overlay, rgba(12, 16, 24, .46))', backdropFilter: 'blur(3px)' },
+      card: { pointerEvents: 'auto', width: '100%', maxWidth: 640, border: '1px solid var(--dsw-alias-border-l2)', borderRadius: 'var(--dsw-radius-xl)', background: 'var(--dsw-specific-input-major)', boxShadow: '0 16px 48px rgba(0, 0, 0, .22), var(--dsw-shadow-lv2)', overflow: 'hidden', display: 'flex', flexDirection: 'column' },
+      cardHeader: { display: 'flex', alignItems: 'flex-start', gap: 12, padding: '18px 20px 16px', borderBottom: '1px solid var(--dsw-alias-border-l1)' },
+      headerIcon: { display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 32, height: 32, flexShrink: 0, borderRadius: 'var(--dsw-radius-md)', background: 'var(--dsw-alias-state-warn-tertiary)', color: 'var(--dsw-alias-state-warn-primary)', fontSize: 17, fontWeight: 700 },
+      headerText: { display: 'flex', flexDirection: 'column', gap: 3, minWidth: 0 },
+      kicker: { color: 'var(--dsw-alias-state-warn-primary)', fontSize: 11, fontWeight: 600, letterSpacing: '.04em', textTransform: 'uppercase', margin: 0 },
+      strip: { display: 'flex', alignItems: 'center', gap: 8, padding: '8px 20px', fontSize: 12, lineHeight: '18px', color: 'var(--dsw-alias-label-tertiary)', background: 'var(--dsw-alias-interactive-bg-secondary)' },
+      dot: { width: 7, height: 7, borderRadius: '50%', background: 'var(--dsw-alias-state-warn-primary)', flexShrink: 0 },
+      body: { display: 'flex', flexDirection: 'column', gap: 12, padding: '18px 20px', maxHeight: '52vh', overflowY: 'auto', textAlign: 'left' },
+      section: { display: 'flex', flexDirection: 'column', gap: 6 },
+      sectionLabel: { color: 'var(--dsw-alias-label-tertiary)', fontSize: 11, fontWeight: 600, letterSpacing: '.03em', textTransform: 'uppercase', margin: 0 },
       label: { color: 'var(--dsw-alias-label-secondary)', fontSize: 12, margin: 0 },
-      headline: { color: 'var(--dsw-alias-label-primary)', fontSize: 15, fontWeight: 500, margin: 0 },
-      mono: {
-        color: 'var(--dsw-alias-label-tertiary)', fontFamily: 'var(--ds-font-family-code)',
-        fontSize: 13, lineHeight: '20px', whiteSpace: 'pre-wrap', wordBreak: 'break-all',
-        background: 'var(--dsw-alias-interactive-bg-secondary)', border: '1px solid var(--dsw-alias-interactive-border-secondary)',
-        borderRadius: 'var(--dsw-radius-md)', padding: '8px 10px', margin: 0, maxHeight: 160, overflowY: 'auto',
-      },
-      reason: { color: 'var(--dsw-alias-label-secondary)', fontSize: 13, lineHeight: '20px', margin: 0, whiteSpace: 'pre-wrap', wordBreak: 'break-word' },
-      warnings: {
-        border: '1px solid var(--dsw-alias-state-warn-secondary)', borderRadius: 'var(--dsw-radius-md)',
-        background: 'var(--dsw-alias-state-warn-tertiary)', padding: '8px 12px', margin: 0,
-      },
-      warningsTitle: { color: 'var(--dsw-alias-state-warn-primary)', fontSize: 12, fontWeight: 600, margin: '0 0 4px' },
+      headline: { color: 'var(--dsw-alias-label-primary)', fontSize: 15, fontWeight: 600, lineHeight: '21px', margin: 0 },
+      mono: { color: 'var(--dsw-alias-label-primary)', fontFamily: 'var(--ds-font-family-code)', fontSize: 13, lineHeight: '20px', whiteSpace: 'pre-wrap', wordBreak: 'break-all', background: 'var(--dsw-alias-interactive-bg-secondary)', border: '1px solid var(--dsw-alias-border-l2)', borderRadius: 'var(--dsw-radius-md)', padding: '10px 12px', margin: 0, maxHeight: 180, overflowY: 'auto' },
+      reason: { color: 'var(--dsw-alias-label-primary)', fontSize: 13, lineHeight: '20px', margin: 0, whiteSpace: 'pre-wrap', wordBreak: 'break-word', padding: '9px 11px', borderLeft: '2px solid var(--dsw-alias-state-warn-primary)', background: 'var(--dsw-alias-state-warn-tertiary)', borderRadius: '0 var(--dsw-radius-sm) var(--dsw-radius-sm) 0' },
+      method: { alignSelf: 'flex-start', color: 'var(--dsw-alias-label-secondary)', fontSize: 12, border: '1px solid var(--dsw-alias-border-l2)', borderRadius: 'var(--dsw-radius-sm)', padding: '4px 8px', background: 'var(--dsw-specific-input-minor)' },
+      warnings: { border: '1px solid var(--dsw-alias-state-warn-secondary)', borderRadius: 'var(--dsw-radius-md)', background: 'var(--dsw-alias-state-warn-tertiary)', padding: '10px 12px', marginTop: 2 },
+      warningsTitle: { color: 'var(--dsw-alias-state-warn-primary)', fontSize: 12, fontWeight: 600, margin: '0 0 5px' },
       warningsItem: { color: 'var(--dsw-alias-state-warn-primary)', fontSize: 12, lineHeight: '18px', margin: 0 },
-      input: {
-        width: '100%', boxSizing: 'border-box', color: 'var(--dsw-alias-label-primary)',
-        background: 'var(--dsw-specific-input-minor)', border: '1px solid var(--dsw-alias-interactive-border-primary)',
-        borderRadius: 'var(--dsw-radius-md)', padding: '8px 10px', fontSize: 14, outline: 'none',
-      },
-      actions: {
-        display: 'flex', justifyContent: 'flex-end', gap: 8, padding: '14px 16px', flexWrap: 'wrap',
-      },
-      button: {
-        border: '1px solid var(--dsw-alias-interactive-border-primary)', borderRadius: 'var(--dsw-radius-md)',
-        background: 'var(--dsw-alias-interactive-bg-primary)', color: 'var(--dsw-alias-label-primary)',
-        padding: '7px 16px', fontSize: 13, cursor: 'pointer', lineHeight: '18px',
-      },
-      buttonPrimary: {
-        border: '1px solid transparent', borderRadius: 'var(--dsw-radius-md)',
-        background: 'var(--dsw-alias-interactive-bg-brand)', color: 'var(--dsw-alias-label-inverse-primary)',
-        padding: '7px 16px', fontSize: 13, cursor: 'pointer', lineHeight: '18px',
-      },
-      buttonDanger: {
-        border: '1px solid transparent', borderRadius: 'var(--dsw-radius-md)',
-        background: 'var(--dsw-alias-interactive-bg-danger)', color: 'var(--dsw-alias-state-error-primary)',
-        padding: '7px 16px', fontSize: 13, cursor: 'pointer', lineHeight: '18px',
-      },
+      input: { width: '100%', boxSizing: 'border-box', color: 'var(--dsw-alias-label-primary)', background: 'var(--dsw-specific-input-minor)', border: '1px solid var(--dsw-alias-interactive-border-primary)', borderRadius: 'var(--dsw-radius-md)', padding: '10px 12px', fontSize: 14, outline: 'none' },
+      actions: { display: 'flex', justifyContent: 'flex-end', gap: 8, padding: '14px 20px 18px', flexWrap: 'wrap', borderTop: '1px solid var(--dsw-alias-border-l1)' },
+      button: { border: '1px solid var(--dsw-alias-interactive-border-primary)', borderRadius: 'var(--dsw-radius-md)', background: 'var(--dsw-alias-interactive-bg-primary)', color: 'var(--dsw-alias-label-primary)', padding: '7px 14px', fontSize: 13, cursor: 'pointer', lineHeight: '18px' },
+      buttonPrimary: { border: '1px solid transparent', borderRadius: 'var(--dsw-radius-md)', background: 'var(--dsw-alias-state-business-primary)', color: 'var(--dsw-alias-label-inverse-primary)', padding: '7px 16px', fontSize: 13, fontWeight: 600, cursor: 'pointer', lineHeight: '18px' },
+      buttonDanger: { border: '1px solid var(--dsw-alias-state-error-secondary)', borderRadius: 'var(--dsw-radius-md)', background: 'var(--dsw-alias-state-error-tertiary)', color: 'var(--dsw-alias-state-error-primary)', padding: '7px 14px', fontSize: 13, cursor: 'pointer', lineHeight: '18px' },
     };
-
     /* ---------------- 弹窗组件 ---------------- */
     function useCurrentRequest() {
       const [current, setCurrent] = useState(() => store.snapshot());
@@ -362,25 +325,34 @@ window.__ModuleLoader__.load({
         return h('div', {
           style: styles.layer, role: 'dialog', 'aria-modal': true, 'aria-label': t('password.title'), onKeyDown,
         }, h('div', { style: styles.card }, [
-          h('div', { style: styles.strip }, [h('span', { style: styles.dot }), key('password.title')]),
+          h('div', { style: styles.cardHeader }, [
+            h('span', { style: styles.headerIcon, 'aria-hidden': true }, '⚠'),
+            h('div', { style: styles.headerText }, [
+              h('p', { style: styles.kicker }, key('warnings.title')),
+              h('p', { style: styles.headline }, key('password.title')),
+              h('p', { style: styles.label }, key('password.subject')),
+            ]),
+          ]),
+          h('div', { style: styles.strip }, [h('span', { style: styles.dot }), key('password.method', { escalation: fmt(request.escalation) })]),
           h('div', { style: styles.body }, [
-            h('p', { style: styles.headline }, key('password.subject')),
-            h('p', { style: styles.label }, key('password.method', { escalation: fmt(request.escalation) })),
-            h('label', { style: { ...styles.label, marginTop: 4 } }, key('password.label')),
-            h('input', {
-              ref: inputRef, type: showPassword ? 'text' : 'password', style: styles.input, value: password,
-              // 关闭浏览器自动填充: 自动填入的旧密码会让 sudo 校验失败且难以察觉
-              autoComplete: 'off', name: 'dsh-root-bridge-sudo-password', spellCheck: false,
-              placeholder: '\u2022\u2022\u2022\u2022\u2022\u2022',
-              onChange: (e) => setPassword(e.target.value),
-              onKeyDown: (e) => { if (e.key === 'Enter') submit(); },
-            }),
-            h('button', {
-              type: 'button',
-              style: { ...styles.label, background: 'transparent', border: 'none', padding: 0, cursor: 'pointer', textDecoration: 'underline', textAlign: 'left' },
-              onClick: () => setShowPassword((v) => !v),
-            }, showPassword ? '隐藏密码' : '显示密码'),
-            h('p', { style: { ...styles.label, color: 'var(--dsw-alias-label-tertiary)' } }, key('password.note')),
+            h('div', { style: styles.section }, [
+              h('label', { style: styles.sectionLabel }, key('password.label')),
+              h('input', {
+                ref: inputRef, type: showPassword ? 'text' : 'password', style: styles.input, value: password,
+                autoComplete: 'off', name: 'dsh-root-bridge-sudo-password', spellCheck: false,
+                placeholder: '\u2022\u2022\u2022\u2022\u2022\u2022',
+                onChange: (e) => setPassword(e.target.value),
+                onKeyDown: (e) => { if (e.key === 'Enter') submit(); },
+              }),
+              h('button', { type: 'button', style: { ...styles.label, background: 'transparent', border: 'none', padding: 0, cursor: 'pointer', textDecoration: 'underline', textAlign: 'left' }, onClick: () => setShowPassword((v) => !v) }, showPassword ? '隐藏密码' : '显示密码'),
+            ]),
+            h('p', { style: styles.label }, key('password.note')),
+            h('div', { style: styles.warnings }, [
+              h('p', { style: styles.warningsTitle }, key('warnings.title')),
+              h('p', { style: styles.warningsItem }, '1. ' + t('warnings.1')),
+              h('p', { style: styles.warningsItem }, '2. ' + t('warnings.2')),
+              h('p', { style: styles.warningsItem }, '3. ' + t('warnings.3')),
+            ]),
           ]),
           h('div', { style: styles.actions }, [
             h('button', { style: styles.button, disabled: busy, onClick: () => answer({ decision: 'cancel' }) }, key('password.cancel')),
@@ -394,14 +366,24 @@ window.__ModuleLoader__.load({
       return h('div', {
         style: styles.layer, role: 'dialog', 'aria-modal': true, 'aria-label': t('approval.title'), onKeyDown,
       }, h('div', { style: styles.card }, [
-        h('div', { style: styles.strip }, [h('span', { style: styles.dot }), key('approval.title')]),
+        h('div', { style: styles.cardHeader }, [
+          h('span', { style: styles.headerIcon, 'aria-hidden': true }, '⚠'),
+          h('div', { style: styles.headerText }, [
+            h('p', { style: styles.kicker }, key('warnings.title')),
+            h('p', { style: styles.headline }, key('approval.title')),
+            h('p', { style: styles.label }, key('approval.subject', { toolName: fmt(request.toolName) })),
+          ]),
+        ]),
+        h('div', { style: styles.strip }, [h('span', { style: styles.dot }), key('approval.method', { escalation: fmt(request.escalation) })]),
         h('div', { style: styles.body }, [
-          h('p', { style: styles.headline }, key('approval.subject', { toolName: fmt(request.toolName) })),
-          h('p', { style: styles.label }, key('approval.command')),
-          h('pre', { style: styles.mono }, fmt(request.command)),
-          h('p', { style: styles.label }, key('approval.reason')),
-          h('p', { style: styles.reason }, fmt(request.reason) !== '' ? fmt(request.reason) : key('approval.noReason')),
-          h('p', { style: styles.label }, key('approval.method', { escalation: fmt(request.escalation) })),
+          h('div', { style: styles.section }, [
+            h('p', { style: styles.sectionLabel }, key('approval.command')),
+            h('pre', { style: styles.mono }, fmt(request.command)),
+          ]),
+          h('div', { style: styles.section }, [
+            h('p', { style: styles.sectionLabel }, key('approval.reason')),
+            h('p', { style: styles.reason }, fmt(request.reason) !== '' ? fmt(request.reason) : key('approval.noReason')),
+          ]),
           h('div', { style: styles.warnings }, [
             h('p', { style: styles.warningsTitle }, key('warnings.title')),
             h('p', { style: styles.warningsItem }, '1. ' + t('warnings.1')),
@@ -427,6 +409,8 @@ window.__ModuleLoader__.load({
     const CHIP_CSS = `
 .dsh-root-bridge-trigger:hover:not(:disabled){background:var(--dsw-alias-interactive-bg-hover)}
 .dsh-root-bridge-opt:hover:not(:disabled):not(.is-active){background:var(--dsw-alias-interactive-bg-hover)}
+.dsh-root-bridge-setting:hover:not(:disabled){background:var(--dsw-alias-interactive-bg-hover);border-color:var(--dsw-alias-interactive-border-primary);transform:translateY(-1px)}
+.dsh-root-bridge-setting:focus-visible{outline:none;box-shadow:0 0 0 2px var(--dsw-focus-ring-color,var(--dsw-alias-state-business-primary))}
 `;
     const chipStyles = {
       root: {
@@ -616,24 +600,29 @@ window.__ModuleLoader__.load({
 
     /* ---------------- 设置页：Root 权限 ---------------- */
     const sectionStyles = {
-      root: { display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 760, color: 'var(--dsw-alias-label-primary)' },
+      root: { display: 'flex', flexDirection: 'column', gap: 18, maxWidth: 760, color: 'var(--dsw-alias-label-primary)' },
+      introCard: { display: 'flex', flexDirection: 'column', gap: 4, padding: '14px 16px', border: '1px solid var(--dsw-alias-border-l2)', borderRadius: 'var(--dsw-radius-lg)', background: 'var(--dsw-specific-input-minor)' },
+      titleBlock: { display: 'flex', flexDirection: 'column', gap: 4, minWidth: 0 },
+      card: { display: 'flex', flexDirection: 'column', gap: 9, padding: '14px 16px', border: '1px solid var(--dsw-alias-border-l1)', borderRadius: 'var(--dsw-radius-lg)', background: 'var(--dsw-specific-input-major)' },
+      cardLabel: { color: 'var(--dsw-alias-label-primary)', fontSize: 13, fontWeight: 600, margin: 0 },
+      rootTitle: { margin: 0, fontSize: 18, fontWeight: 600, letterSpacing: '-.01em' },
       title: { margin: 0, fontSize: 18, fontWeight: 600 },
       intro: { margin: 0, color: 'var(--dsw-alias-label-tertiary)', fontSize: 13, lineHeight: '20px' },
-      group: { display: 'flex', flexDirection: 'column', gap: 6 },
+      group: { display: 'flex', flexDirection: 'column', gap: 7 },
       label: { fontSize: 13, fontWeight: 600, color: 'var(--dsw-alias-label-primary)', margin: 0 },
       hint: { fontSize: 12, color: 'var(--dsw-alias-label-tertiary)', margin: 0, lineHeight: '18px' },
       row: { display: 'flex', gap: 8, flexWrap: 'wrap' },
       option: {
         flex: '1 1 180px', minWidth: 160, textAlign: 'left', cursor: 'pointer',
-        border: '1px solid var(--dsw-alias-border-l2)', borderRadius: 'var(--dsw-radius-lg)',
+        border: '1px solid var(--dsw-alias-border-l2)', borderRadius: 'var(--dsw-radius-md)',
         background: 'var(--dsw-specific-input-minor)', padding: '10px 12px', color: 'var(--dsw-alias-label-primary)',
-        display: 'flex', flexDirection: 'column', gap: 4,
+        display: 'flex', flexDirection: 'column', gap: 4, transition: 'background-color .12s, border-color .12s, transform .12s',
       },
       optionActive: {
         flex: '1 1 180px', minWidth: 160, textAlign: 'left', cursor: 'pointer',
-        border: '1px solid var(--dsw-alias-state-business-primary)', borderRadius: 'var(--dsw-radius-lg)',
+        border: '1px solid var(--dsw-alias-state-business-primary)', borderRadius: 'var(--dsw-radius-md)',
         background: 'var(--dsw-alias-state-business-tertiary)', padding: '10px 12px', color: 'var(--dsw-alias-label-primary)',
-        display: 'flex', flexDirection: 'column', gap: 4,
+        display: 'flex', flexDirection: 'column', gap: 4, transition: 'background-color .12s, border-color .12s, transform .12s',
       },
       optionTitle: { fontSize: 13, fontWeight: 600 },
       optionDesc: { fontSize: 12, lineHeight: '18px', color: 'var(--dsw-alias-label-tertiary)', margin: 0 },
@@ -676,6 +665,7 @@ window.__ModuleLoader__.load({
     function OptionCards({ t, options, value, disabled, onPick }) {
       return h('div', { style: sectionStyles.row }, options.map((option) => h('button', {
         key: option.key, type: 'button', disabled,
+        className: 'dsh-root-bridge-setting',
         style: option.key === value ? sectionStyles.optionActive : sectionStyles.option,
         onClick: () => onPick(option.key),
       }, [
@@ -757,50 +747,47 @@ window.__ModuleLoader__.load({
       }
 
       return h('div', { style: sectionStyles.root }, [
-        h('h2', { style: sectionStyles.title }, t('settings.title')),
-        h('p', { style: sectionStyles.intro }, t('settings.intro')),
-        h('div', { style: sectionStyles.group }, [
-          h('p', { style: sectionStyles.label }, t('settings.language')),
+        h('div', { style: sectionStyles.introCard }, [
+          h('div', { style: sectionStyles.titleBlock }, [
+            h('h2', { style: sectionStyles.rootTitle }, t('settings.title')),
+            h('p', { style: sectionStyles.intro }, t('settings.intro')),
+          ]),
+        ]),
+        h('div', { style: sectionStyles.card }, [
+          h('p', { style: sectionStyles.cardLabel }, t('settings.language')),
           h(OptionCards, { t, options: LANG_INFO, value: config.language ?? 'auto', disabled: busy, onPick: (language) => apply({ language }) }),
         ]),
-        h('div', { style: sectionStyles.group }, [
-          h('p', { style: sectionStyles.label }, t('settings.mode')),
+        h('div', { style: sectionStyles.card }, [
+          h('p', { style: sectionStyles.cardLabel }, t('settings.mode')),
           h(OptionCards, { t, options: MODE_INFO, value: config.mode, disabled: busy, onPick: (mode) => apply({ mode }) }),
         ]),
-        h('div', { style: sectionStyles.group }, [
-          h('p', { style: sectionStyles.label }, t('settings.escalation')),
+        h('div', { style: sectionStyles.card }, [
+          h('p', { style: sectionStyles.cardLabel }, t('settings.escalation')),
           h(OptionCards, { t, options: ESCALATION_INFO, value: config.escalation, disabled: busy, onPick: (escalation) => apply({ escalation }) }),
         ]),
-        h('div', { style: sectionStyles.group }, [
-          h('p', { style: sectionStyles.label }, t('settings.reason')),
+        h('div', { style: sectionStyles.card }, [
+          h('p', { style: sectionStyles.cardLabel }, t('settings.reason')),
           h('p', { style: sectionStyles.hint }, t('settings.reason.desc')),
           h('div', { style: sectionStyles.row }, [
-            h('button', {
-              type: 'button', disabled: busy,
-              style: config.requireReason ? sectionStyles.optionActive : sectionStyles.option,
-              onClick: () => apply({ requireReason: !config.requireReason }),
-            }, [h('span', { style: sectionStyles.optionTitle }, config.requireReason ? '开 / On' : '关 / Off')]),
+            h('button', { type: 'button', className: 'dsh-root-bridge-setting', disabled: busy, style: config.requireReason ? sectionStyles.optionActive : sectionStyles.option, onClick: () => apply({ requireReason: !config.requireReason }) }, [h('span', { style: sectionStyles.optionTitle }, config.requireReason ? '开 / On' : '关 / Off')]),
           ]),
         ]),
-        h('div', { style: sectionStyles.group }, [
-          h('p', { style: sectionStyles.label }, t('settings.subagent')),
+        h('div', { style: sectionStyles.card }, [
+          h('p', { style: sectionStyles.cardLabel }, t('settings.subagent')),
           h(OptionCards, { t, options: SUBAGENT_INFO, value: config.subagentPolicy, disabled: busy, onPick: (subagentPolicy) => apply({ subagentPolicy }) }),
         ]),
-        h('div', { style: sectionStyles.group }, [
-          h('p', { style: sectionStyles.label }, t('settings.timeout')),
-          h('div', { style: { display: 'flex', gap: 8 } }, [
-            h('input', {
-              type: 'number', min: 1, step: 1, value: timeoutDraft, disabled: busy,
-              style: sectionStyles.timeoutInput,
-              onChange: (event) => setTimeoutDraft(event.target.value),
-              onBlur: commitTimeout,
-              onKeyDown: (event) => { if (event.key === 'Enter') { event.preventDefault(); commitTimeout(); } },
-            }),
+        h('div', { style: sectionStyles.card }, [
+          h('p', { style: sectionStyles.cardLabel }, t('settings.timeout')),
+          h('div', { style: { display: 'flex', gap: 8, alignItems: 'center' } }, [
+            h('input', { type: 'number', min: 1, step: 1, value: timeoutDraft, disabled: busy, style: sectionStyles.timeoutInput, onChange: (event) => setTimeoutDraft(event.target.value), onBlur: commitTimeout, onKeyDown: (event) => { if (event.key === 'Enter') { event.preventDefault(); commitTimeout(); } } }),
+            h('span', { style: sectionStyles.hint }, 'min'),
           ]),
         ]),
-        h('p', { style: sectionStyles.status }, t('settings.state', { count: grants })),
-        error === null ? null : h('p', { style: sectionStyles.failed }, error),
-        saved ? h('p', { style: sectionStyles.saved }, t('settings.saved')) : null,
+        h('div', { style: { display: 'flex', flexDirection: 'column', gap: 6 } }, [
+          h('p', { style: sectionStyles.status }, t('settings.state', { count: grants })),
+          error === null ? null : h('p', { style: sectionStyles.failed }, error),
+          saved ? h('p', { style: sectionStyles.saved }, t('settings.saved')) : null,
+        ]),
         h('div', { style: sectionStyles.warn }, [
           h('p', { style: sectionStyles.warnTitle }, t('settings.warnings')),
           h('p', { style: sectionStyles.warnItem }, '1. ' + t('warnings.1')),

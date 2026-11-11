@@ -1,6 +1,6 @@
 {
   "name": "@xiaohuangbo/dsh-root-bridge",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Session-level root privilege bridge for DeepSeek Harness: request-approval mode, full root mode (polkit password entry in the web UI) and fakeroot mode, with sudo or run0 --empower escalation and configurable subagent sudo policy.",
   "keywords": [
     "dsh",
@@ -19,12 +19,12 @@
   "author": "xiaohuangbo",
   "type": "module",
   "exports": {
-    ".": "./svc14.js",
+    ".": "./svc15.js",
     "./client": "./client.js",
     "./locale/*.json": "./locale/*.json",
     "./icon": "./icon.svg"
   },
-  "main": "./svc14.js",
+  "main": "./svc15.js",
   "directories": {
     "test": "test"
   },
@@ -36,7 +36,7 @@
     "icon.svg",
     "locale/*.json",
     "screenshots.json",
-    "svc14.js",
+    "svc15.js",
     "test/ask-flow.test.mjs",
     "test/client-contract.test.mjs",
     "test/client-integration.test.mjs",

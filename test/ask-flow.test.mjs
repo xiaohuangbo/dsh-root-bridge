@@ -13,7 +13,7 @@ import { createRequire } from "node:module";
 
 const require = createRequire(import.meta.url);
 const { Context } = await import(pathToFileURL(require.resolve("@deepseek-ai/cordis")).href);
-const { DshRootBridgeService } = await import("../svc14.js");
+const { DshRootBridgeService } = await import("../svc15.js");
 
 const root = new Context();
 root.plugin({
