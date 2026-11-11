@@ -288,7 +288,7 @@ Publishing to GitHub Packages needs a token with `write:packages` in `~/.npmrc`;
 
 ## License / 许可
 
-[GNU General Public License v3.0](LICENSE) © 2026 [xiaohuangbo](https://github.com/xiaohuangbo)
+[GNU General Public License v3.0](LICENSE) 🄯 2026 [xiaohuangbo](https://github.com/xiaohuangbo)
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, **version 3** of the License. It is distributed in the hope that it will be useful, but **without any warranty**; without even the implied warranty of merchantability or fitness for a particular purpose. See the [GNU General Public License](LICENSE) for more details.
 
