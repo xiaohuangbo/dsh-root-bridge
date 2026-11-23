@@ -40,10 +40,11 @@
     "test/ask-flow.test.mjs",
     "test/client-contract.test.mjs",
     "test/client-integration.test.mjs",
-    "test/config-getters.test.mjs"
+    "test/config-getters.test.mjs",
+    "test/rootof-compat.test.mjs"
   ],
   "scripts": {
-    "test": "node test/config-getters.test.mjs && node test/ask-flow.test.mjs && node test/client-contract.test.mjs && node test/client-integration.test.mjs",
+    "test": "node test/config-getters.test.mjs && node test/ask-flow.test.mjs && node test/client-contract.test.mjs && node test/client-integration.test.mjs && node test/rootof-compat.test.mjs",
     "publish:npm": "npm publish --registry=https://registry.npmjs.org --access public",
     "publish:gh": "npm publish --registry=https://npm.pkg.github.com",
     "publish:both": "npm run publish:npm && npm run publish:gh"

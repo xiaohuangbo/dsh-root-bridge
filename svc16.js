@@ -881,12 +881,29 @@ export class DshRootBridgeService extends TypertRemoteService {
   rootOf(agent) {
     const agents = this.ctx.get("agents");
     if (agents === undefined) return agent;
-    const roots = agents.roots();
-    if (roots.includes(agent)) return agent;
-    for (const root of roots) {
-      if (agents.isOwnedBy(agent.id, root)) return root;
+    if (typeof agents.roots === "function" && typeof agents.isOwnedBy === "function") {
+      const roots = agents.roots();
+      if (roots.includes(agent)) return agent;
+      for (const root of roots) {
+        if (agents.isOwnedBy(agent.id, root)) return root;
+      }
+      return agent;
     }
-    return agent;
+    // 兼容没有 roots()/isOwnedBy() 的 DSH 构建（如 @deepseek-ai/dsh-agent@0.2.2-rc.5
+    // 的 AgentRegistry 只有 get()/list()）：沿 parent 链上溯，找不到则返回自身。
+    // 主代理返回自身即正确行为；子代理退化为各自独立审批，方向安全（只会多审批，不会漏授权）。
+    if (typeof agents.get !== "function") return agent;
+    let cur = agent;
+    const seen = new Set();
+    while (cur !== undefined && !seen.has(cur.id)) {
+      seen.add(cur.id);
+      const parentId = cur.parent?.id ?? cur.parentId;
+      if (parentId === undefined || parentId === cur.id) break;
+      const parent = agents.get(parentId);
+      if (parent === undefined) break;
+      cur = parent;
+    }
+    return cur;
   }
 }
 
